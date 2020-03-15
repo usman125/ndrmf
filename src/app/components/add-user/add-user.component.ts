@@ -50,7 +50,7 @@ export class AddUserComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     setTimeout(() => {
-      this._authStore.setRouteName('ADD-USER');
+      this._authStore.setRouteName('Users');
     });
     this.Subscription.add(
       this._smeStore.state$.subscribe((data) => {
