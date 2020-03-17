@@ -35,27 +35,30 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatBadgeModule } from '@angular/material/badge';
 import { SiteLayout } from "./components/common/layouts/sitelayout/sitelayout.component";
 import { MatExpansionModule } from '@angular/material/expansion';
+import { IntimateFipModule } from "./modules/fip-intimations/fip-intimations.module";
 
 import {
   AuthGuard,
-  LoginComponent,
-  SurveysComponent,
+  // LoginComponent,
+  // SurveysComponent,
   CoffeeElectionComponent,
-  RegisterComponent,
-  UsersComponent,
-  CreateSurveyComponent,
-  FipHomeComponent,
-  FipEligibilityComponent,
-  FipQualificationComponent,
-  AccreditationRequestComponent,
-  SmeComponent,
-  AddSmeComponent,
-  AddUserComponent,
+  // RegisterComponent,
+  // UsersComponent,
+  // CreateSurveyComponent,
+  // FipHomeComponent,
+  // FipEligibilityComponent,
+  // FipQualificationComponent,
+  // AccreditationRequestComponent,
+  // SmeComponent,
+  // AddSmeComponent,
+  // AddUserComponent,
   AssignTask,
-  AccreditationCommentsMatrixComponent,
-  EligibilityRequestsComponent,
+  // AccreditationCommentsMatrixComponent,
+  // EligibilityRequestsComponent,
   IntimateFip,
 } from './components/component-index';
+
+// import { AuthGuard } from "./components/component-index";
 
 import { AccreditationRequestStore } from './stores/accreditation-requests/accreditation-requests-store';
 import { SingleAccreditationRequestStore } from './stores/single-accreditation-requests/single-accreditation-requests-store';
@@ -68,7 +71,7 @@ import { DepartmentsStore } from "./stores/departments/departments-store";
 import { AccreditationReviewStore } from "./stores/accreditation-reviews/accreditation-reviews-store";
 import { AccreditationCommentsMatrixStore } from './stores/accreditation-comments-matrix/accreditation-comments-matrix-store';
 import { fipIntimationsStore } from './stores/fip-intimations/fip-intimations-store';
-import { SectionSelectorComponent } from './components/section-selector/section-selector.component';
+// import { SectionSelectorComponent } from './components/section-selector/section-selector.component';
 import { SectionSelectorStore } from './stores/section-selector/section-selector-store';
 
 
@@ -76,28 +79,29 @@ import { SectionSelectorStore } from './stores/section-selector/section-selector
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    SurveysComponent,
-    CoffeeElectionComponent,
     HeaderComponent,
-    RegisterComponent,
-    UsersComponent,
-    CreateSurveyComponent,
-    FipHomeComponent,
-    FipEligibilityComponent,
-    FipQualificationComponent,
-    AccreditationRequestComponent,
-    SmeComponent,
-    AddSmeComponent,
-    AddUserComponent,
+    // LoginComponent,
+    // SurveysComponent,
+    CoffeeElectionComponent,
+    // RegisterComponent,
+    // UsersComponent,
+    // CreateSurveyComponent,
+    // FipHomeComponent,
+    // FipEligibilityComponent,
+    // FipQualificationComponent,
+    // AccreditationRequestComponent,
+    // SmeComponent,
+    // AddSmeComponent,
+    // AddUserComponent,
     AssignTask,
-    AccreditationCommentsMatrixComponent,
-    EligibilityRequestsComponent,
-    SectionSelectorComponent,
-    IntimateFip,
+    // AccreditationCommentsMatrixComponent,
+    // EligibilityRequestsComponent,
+    // IntimateFip,
+    // SectionSelectorComponent,
     SiteLayout,
   ],
   imports: [
+    IntimateFipModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -161,6 +165,7 @@ import { SectionSelectorStore } from './stores/section-selector/section-selector
     SectionSelectorStore,
   ],
   bootstrap: [AppComponent],
+  exports: [],
   entryComponents: [AssignTask, IntimateFip]
 })
 export class AppModule { }

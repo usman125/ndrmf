@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate {
     const currentUser = JSON.parse(localStorage.getItem('user'));
     if (this._authService.loggedIn()) {
       if (route.data.roles && route.data.roles.indexOf(currentUser.role) === -1) {
-        console.log('Route Data:--', route.data.roles);
+        // console.log('Route Data:--', route.data.roles);
         this._router.events.subscribe((url: any) => {
           if (url.url === '/') {
             if (route.data.roles === 'admin') {
@@ -54,7 +54,7 @@ export class AuthGuard implements CanActivate {
             this._router.navigate(['/fip-qualification']);
           }
         });
-        this._router.navigate(['/'], { queryParams: { returnUrl: state.url } });
+        this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
         return false;
       }
       return true;

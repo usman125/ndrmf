@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AccreditationRequestStore } from "../../stores/accreditation-requests/accreditation-requests-store";
 import { Subscription } from "rxjs";
+import { distinctUntilChanged } from "rxjs/operators";
 import { AuthStore } from "../../stores/auth/auth-store";
 import { SmeStore } from "../../stores/sme/sme-store";
 import { SurveysStore } from "../../stores/surveys/surveys-store";
@@ -114,28 +115,28 @@ export class AccreditationRequestComponent implements OnInit, OnDestroy {
       this._authStore.setRouteName('ACCREDITATION-REQUESTS');
     });
     this.Subscription.add(
-      this._authStore.state$.subscribe((data) => {
+      this._authStore.state$.pipe(distinctUntilChanged()).subscribe((data) => {
         // this.allSmes = data.smes;
         this.addMobileClasses = data.auth.applyMobileClasses;
       })
     );
     this.Subscription.add(
-      this._smeStore.state$.subscribe((data) => {
+      this._smeStore.state$.pipe(distinctUntilChanged()).subscribe((data) => {
         this.allSmes = data.smes;
       })
     );
     this.Subscription.add(
-      this._accreditationReviewStore.state$.subscribe((data) => {
+      this._accreditationReviewStore.state$.pipe(distinctUntilChanged()).subscribe((data) => {
         this.allRequestReviews = data.reviews;
       })
     );
     this.Subscription.add(
-      this._surveysStore.state$.subscribe((data) => {
+      this._surveysStore.state$.pipe(distinctUntilChanged()).subscribe((data) => {
         this.allSurveys = data.surveys;
       })
     );
     this.Subscription.add(
-      this._singleAccreditationRequestStore.state$.subscribe((data) => {
+      this._singleAccreditationRequestStore.state$.pipe(distinctUntilChanged()).subscribe((data) => {
         this.userReviewRequests = data.requests;
         // console.log("USER REVIEWS:--", this.userReviewRequests);
         if (this.userReviewRequests)
@@ -143,17 +144,17 @@ export class AccreditationRequestComponent implements OnInit, OnDestroy {
       })
     );
     this.Subscription.add(
-      this._sectionSelectorStore.state$.subscribe((data) => {
+      this._sectionSelectorStore.state$.pipe(distinctUntilChanged()).subscribe((data) => {
         this.allSectionSelections = data.selections;
       })
     );
     this.Subscription.add(
-      this._fipIntimationsStore.state$.subscribe((data) => {
+      this._fipIntimationsStore.state$.pipe(distinctUntilChanged()).subscribe((data) => {
         // console.log("ALL ADDED INTIMATIONS:--", data.intimations);
       })
     )
     this.Subscription.add(
-      this._accreditationRequestStore.state$.subscribe((data) => {
+      this._accreditationRequestStore.state$.pipe(distinctUntilChanged()).subscribe((data) => {
         // console.log(data);
         // this.generatePipe = generate(data)
         this.userRequests = [];

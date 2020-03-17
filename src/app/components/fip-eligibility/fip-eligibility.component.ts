@@ -73,6 +73,7 @@ export class FipEligibilityComponent implements OnInit, OnDestroy {
     this.secondForm = $event.data;
     var flag: any = _.find(this.allRequests, { userRef: this.loggedUser.email, formIdentity: this.form.formIdentity })
     if (!flag) {
+      console.log('NEW SUBMITTED:--', $event.data);
       this.form.exists = true;
       this._accreditationRequestStore.addRequest(
         this.loggedUser.email,
