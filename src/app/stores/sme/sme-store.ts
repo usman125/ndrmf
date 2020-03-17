@@ -46,5 +46,21 @@ export class SmeStore extends Store<SmeState> {
     });
   }
 
+  updateFormGenrated(
+    key: string,
+  ): void {
+    this.setState({
+      ...this.state,
+      smes: [
+        ...this.state.smes.map((c) => {
+          if (c.key === key) {
+            return { ...c, formGenerated: true }
+          }
+          return c;
+        })
+      ]
+    });
+  }
+
 
 }

@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { UsersStore } from "../../stores/users/users-store";
 import { SmeStore } from "../../stores/sme/sme-store";
-import { Subscription } from "rxjs";
+import { Subscription, from } from "rxjs";
+import { filter } from "rxjs/operators";
 import { Router } from "@angular/router";
 
 @Component({
@@ -36,22 +37,28 @@ export class AddSmeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.Subscription.add(
       this._userStore.state$.subscribe((data) => {
-        this.allUsers = data.users;
+        // this.allUsers = data.users;
+        // from(data.users)
+        from(data.users).pipe(filter(user => user['role'] === 'sme' && !user['smeRef']))
+          .subscribe((user) => {
+            console.log(user);
+            this.allUsers.push(user);
+          }).unsubscribe();
       })
     )
   }
 
-  userChanged($event){
+  userChanged($event) {
     console.log("USER CHANGED:--", $event);
   }
 
-  addSme(values){
+  addSme(values) {
     console.log("ADD SME:--", values);
-    this._smeStore.addSme(values.name, values.key, values.userRef, false);
+    this._smeStore.addSme(values.name, values.key, values.userRef || null, false);
     this.addSmeForm.reset();
   }
 
-  goBack(){
+  goBack() {
     this._router.navigate(['/smes']);
   }
 

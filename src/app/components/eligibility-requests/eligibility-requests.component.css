@@ -51,3 +51,20 @@ mat-form-field {
 .view-block .activity-items {
   width: 38%;
 }
+
+.mobile-class.view-block{
+  flex-direction: column-reverse;
+}
+.mobile-class.view-block{
+  flex-direction: column-reverse;
+}
+
+.mobile-class.view-block .form-items {
+  /* margin-right: 20px; */
+  width: auto;
+}
+
+/* .view-block[_ngcontent-gnv-c12] .activity-items[_ngcontent-gnv-c12] */
+.mobile-class.view-block .activity-items {
+  width: auto;
+}

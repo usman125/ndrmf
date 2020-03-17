@@ -36,7 +36,7 @@
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
-<div class="view-block" style="display: flex;flex-direction: row;" *ngIf="toggle && !commentsFlag">
+<div [ngClass]="{'mobile-class': addMobileClasses}" class="view-block" *ngIf="toggle && !commentsFlag">
   <div class="margin-5 form-items">
 
     <div *ngFor="let item of userReviewRequests">
@@ -57,15 +57,13 @@
           </div>
           <span class="example-spacer"></span>
           <div *ngIf="currentUser?.role !== 'sme'">
-            <button (click)="openDialog(item)" *ngIf="item.previousReview === null && item.submitData"
-              [disabled]="item.currentReview" mat-button color="basic">
+            <button matTooltip="Assign Task" (click)="openDialog(item)" *ngIf="item.previousReview === null && item.submitData"
+              [disabled]="item.currentReview" mat-icon-button color="basic">
               <mat-icon>assignment</mat-icon>
-              Assign Task
             </button>
-            <button [disabled]="item.currentReview === 'in_review'" (click)="openDialog(item)"
-              *ngIf="item.previousReview && item.submitData" mat-button color="basic">
+            <button matTooltip="Re-evaluate Task" [disabled]="item.currentReview === 'in_review'" (click)="openDialog(item)"
+              *ngIf="item.previousReview && item.submitData" mat-icon-button color="basic">
               <mat-icon>redo</mat-icon>
-              Re Evaluate
             </button>
           </div>
           <div class="profile-details">
@@ -93,7 +91,7 @@
             <div class="form-comments" *ngFor="let item of formReviewObjects">
               <div class="details">
                 <span>{{item.title}}</span>
-                <span *ngIf="value === true">{{"true"}}</span>
+                <span *ngIf="item.value === true">{{"true"}}</span>
                 <span id="answer">{{item.value}}</span>
                 <span>
                   <mat-form-field>
@@ -135,7 +133,7 @@
             <div class="form-comments" *ngFor="let obj of item.review?.data">
               <div class="details">
                 <span>{{obj.title}}</span>
-                <span *ngIf="value === true">{{"true"}}</span>
+                <span *ngIf="obj.value === true">{{"true"}}</span>
                 <span id="answer">{{obj.value}}</span>
                 <span>
                   <mat-form-field>
@@ -222,13 +220,16 @@
           <div class="bottom-controls">
             <div class="left-block">
               <span class="head">Accredit Status:</span>
-              <span id="comment" class="answer">Deffered</span>
+              <span *ngIf="userSystemStatus === null" id="comment" class="answer">{{'N/A'}}</span>
+              <span *ngIf="userSystemStatus === 'Failed'" id="comment" class="answer">{{'Failed'}}</span>
+              <span *ngIf="userSystemStatus === 'Deffered'" id="comment" class="answer">{{'Deffered'}}</span>
+              <span *ngIf="userSystemStatus === 'Accredited'" id="comment" class="answer">{{'Accredited'}}</span>
               <span id="answer">Set Status</span>
             </div>
             <div class="right-block">
               <span class="head">Overall Score</span>
-              <span class="comments">10/30</span>
-              <span id="answer" class="comments">20%</span>
+              <span class="comments">{{userAllScore || 0}} / {{'5'}}</span>
+              <span *ngIf="userAllScore" id="answer" class="comments">{{(userAllScore/5 * 100)}}%</span>
             </div>
           </div>
         </mat-card-actions>
@@ -268,7 +269,7 @@
           <div class="form-item-boxes">
             <div class="details">
               <span>{{obj.title}}</span>
-              <span *ngIf="value === true">{{"true"}}</span>
+              <span *ngIf="obj.value === true">{{"true"}}</span>
               <span id="answer">{{obj.value}}</span>
               <div class="field-comments">
                 <span id="comment">{{obj.comments}}</span>

@@ -66,7 +66,12 @@ const REQUESTS = [
   },
   {
     userRef: 'dummy@user.com',
-    formSubmitData: { "radioea": "yes", "radioeb": "yes", "radioec1": "yes", "radioec2": "yes", "radioec3": "no", "radioec4": "no", "radioec5": "no", "radioec6": "no", "submit": true },
+    formSubmitData: { 
+      "radioea": "yes", 
+    "radioeb": "yes", "radioec1": "yes", 
+    "radioec2": "yes", 
+    "radioec3": "no",
+     "radioec4": "no", "radioec5": "no", "radioec6": "no", "submit": true },
     formData: {},
     status: 'pending',
     formIdentity: 'quali-ess',

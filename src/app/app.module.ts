@@ -32,7 +32,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
+import { SiteLayout } from "./components/common/layouts/sitelayout/sitelayout.component";
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import {
   AuthGuard,
@@ -93,6 +95,7 @@ import { SectionSelectorStore } from './stores/section-selector/section-selector
     EligibilityRequestsComponent,
     SectionSelectorComponent,
     IntimateFip,
+    SiteLayout,
   ],
   imports: [
     BrowserModule,
@@ -125,6 +128,7 @@ import { SectionSelectorStore } from './stores/section-selector/section-selector
     MatMenuModule,
     MatRadioModule,
     MatBadgeModule,
+    MatExpansionModule,
   ],
   providers: [
     // FormioAuthService,

@@ -9,7 +9,7 @@ import { AuthStore } from '../../stores/auth/auth-store';
 })
 export class CoffeeElectionComponent implements OnInit {
 
-  constructor(private store: CoffeeElectionStore, private _authStore: AuthStore) { }
+  constructor(public store: CoffeeElectionStore, private _authStore: AuthStore) { }
 
   ngOnInit() {
     setTimeout(() => {

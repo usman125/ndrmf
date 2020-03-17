@@ -42,27 +42,27 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    
     <mat-paginator [hidden]="toggle || editFormFlag" #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
     </mat-paginator>
+    
+    <mat-toolbar *ngIf="toggle && !editFormFlag" color="primary">
+      <mat-toolbar-row>
+        <span>{{secondForm.name}}</span>
+        <span class="example-spacer"></span>
+        <button mat-icon-button (click)="goBack()">
+          <mat-icon color="warn" class="example-icon" aria-hidden="false" aria-label="Close">close</mat-icon>
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <div *ngIf="toggle && !editFormFlag" style="margin: 20px 10px;">
+      <formio [form]="secondForm" [refresh]="refreshForm" (submit)="onSubmit($event)"></formio>
+      <pre *ngIf="formValues">{{formValues | json}}</pre>
+    </div>
+
+    <div *ngIf="editFormFlag">
+      <form-builder [form]="secondForm"></form-builder>
+    </div>
+    
   </mat-card-content>
 </mat-card>
-
-<div *ngIf="toggle && !editFormFlag" style="margin: 20px 10px;">
-  <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <span>{{secondForm.name}}</span>
-      <span class="example-spacer"></span>
-      <button mat-icon-button (click)="goBack()">
-        <mat-icon color="warn" class="example-icon" aria-hidden="false" aria-label="Close">close</mat-icon>
-      </button>
-    </mat-toolbar-row>
-  </mat-toolbar>
-  <formio [form]="secondForm" [refresh]="refreshForm" (submit)="onSubmit($event)"></formio>
-  <pre *ngIf="formValues">{{formValues | json}}</pre>
-</div>
-
-
-<div *ngIf="editFormFlag">
-  <!-- <form-builder [form]="secondForm" (change)="onChange($event)"></form-builder> -->
-  <form-builder [form]="secondForm"></form-builder>
-</div>

@@ -2,11 +2,13 @@ const AUTH = {
   loggedUser: false,
   routeName: null,
   sideNavMode: true,
+  opened: true,
   userRole: '',
   eligibaleFlag: false,
   qualifiationFlag: false,
   checked: false,
-  checkedThemeName: '',
+  applyMobileClasses: false,
+  checkedThemeName: 'material-base-theme',
 }
 
 export class AuthState {
@@ -14,10 +16,12 @@ export class AuthState {
     loggedUser: boolean,
     routeName: string,
     sideNavMode: boolean,
+    opened: boolean,
     userRole: string,
     eligibaleFlag: boolean,
     qualifiationFlag: boolean,
     checked: boolean,
+    applyMobileClasses: boolean,
     checkedThemeName: string,
   } = AUTH;
 }

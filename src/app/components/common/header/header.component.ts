@@ -64,7 +64,9 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         this.routeName = auth.auth.routeName;
         this.checked = auth.auth.checked;
         this.sideNavMode = auth.auth.sideNavMode;
-        this.themeName = auth.auth.checkedThemeName;
+        setTimeout(() => {
+          this.themeName = auth.auth.checkedThemeName;
+        })
       })
     );
     this.loggedUser = JSON.parse(localStorage.getItem('user'));

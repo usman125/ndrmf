@@ -18,12 +18,29 @@ import {
   AccreditationCommentsMatrixComponent,
   EligibilityRequestsComponent,
 } from "./components/component-index";
+import { SiteLayout } from "./components/common/layouts/sitelayout/sitelayout.component";
+import { Role } from './models/Roles';
+
+const loggedUser = JSON.parse(localStorage.getItem('user'));
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: LoginComponent,
-  // },
+  {
+    path: 'test',
+    component: SiteLayout,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'home',
+        component: FipHomeComponent,
+      },
+      {
+        path: 'users',
+        component: UsersComponent,
+        // canActivate: [AuthGuard],
+        // data: { roles: [Role.Admin] }
+      },
+    ]
+  },
   {
     path: 'login',
     component: LoginComponent,
@@ -35,7 +52,8 @@ const routes: Routes = [
   {
     path: 'surveys',
     component: SurveysComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   {
     path: 'coffee',
@@ -45,57 +63,70 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   {
     path: 'create-survey',
     component: CreateSurveyComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   {
     path: 'fip-home',
     component: FipHomeComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Fip] }
   },
   {
     path: 'fip-eligibility',
     component: FipEligibilityComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Fip] }
   },
   {
     path: 'fip-qualification',
     component: FipQualificationComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Fip] }
   },
   {
     path: 'accreditation-requests',
     component: AccreditationRequestComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { 
+      roles: [Role.Admin, Role.Sme] 
+    }
   },
   {
     path: 'smes',
     component: SmeComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   {
     path: 'add-sme',
     component: AddSmeComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   {
     path: 'add-user',
     component: AddUserComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   {
     path: 'request-comments',
     component: AccreditationCommentsMatrixComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   {
     path: 'eligibility-requests',
     component: EligibilityRequestsComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   // {
   //   path: 'form',

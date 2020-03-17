@@ -16,12 +16,7 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent);
 @include angular-material-theme($candy-app-theme);
 
 .active-menu-item {
-  background-color: mat-color($candy-app-primary);
-  color: #fff;
-}
-
-.active-menu-item:hover{
-  color: #fff;
+  color: mat-color($candy-app-primary);
 }
 
 .update-btn formio-alerts .alerts {
@@ -131,7 +126,7 @@ a:hover {
 // Define an alternate dark theme.
 
 // $dark-primary: mat-palette($mat-light-blue, A700, 600, 300);
-$dark-primary: mat-palette($mat-deep-purple);
+$dark-primary: mat-palette($mat-purple);
 $dark-accent: mat-palette($mat-green, A400, 200, 700);
 $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
@@ -141,13 +136,58 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 .unicorn-dark-theme {
   @include angular-material-theme($dark-theme);
 
-  .active-menu-item {
-    background-color: mat-color($dark-primary);
+  .mat-drawer-side {
+    border-right: 0px;
+  }
+
+  .hero {
+    height: 100vh !important;
+    background: #262626;
+  }
+
+  .hero .mat-accordion .mat-expansion-panel {
+    background-color: #262626;
     color: #fff;
+  }
+
+  .hero
+    .mat-expansion-panel
+    .mat-expansion-panel-content
+    .mat-expansion-panel-body
+    .mat-list-base
+    .mat-list-item:hover
+    .mat-list-item-content {
+    color: mat-color($dark-primary);
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+  .hero
+    .mat-expansion-panel
+    .mat-expansion-panel-content
+    .mat-expansion-panel-body
+    .mat-list-base
+    .mat-list-item:active {
+    color: mat-color($dark-primary);
+    // background-color: #000 !important;
+  }
+
+  .hero
+    .mat-expansion-panel
+    .mat-expansion-panel-content
+    .mat-expansion-panel-body
+    .mat-list-base
+    .mat-list-item.active-menu-item
+    .mat-list-item-content {
+    color: mat-color($dark-primary);
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+  .active-menu-item {
+    // background-color: mat-color($dark-primary);
+    color: mat-color($dark-primary);
   }
 
   a:hover {
     text-decoration: none;
+    color: mat-color($dark-primary);
   }
   #answer {
     color: mat-color($dark-primary);
@@ -217,14 +257,42 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 // Define an alternate LIGHT theme.
 $light-primary: mat-palette($mat-light-blue, A700);
-// $light-primary: mat-palette($mat-lime);
-// $light-accent: mat-palette($mat-light-green, 900, 800, 700);
 $light-accent: mat-palette($mat-lime);
 $light-warn: mat-palette($mat-deep-orange);
 $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
 
 .unicorn-light-theme {
   @include angular-material-theme($light-theme);
+
+  .hero
+    .mat-expansion-panel
+    .mat-expansion-panel-content
+    .mat-expansion-panel-body
+    .mat-list-base
+    .mat-list-item:hover
+    .mat-list-item-content {
+    color: mat-color($light-primary);
+  }
+  .hero
+    .mat-expansion-panel
+    .mat-expansion-panel-content
+    .mat-expansion-panel-body
+    .mat-list-base
+    .mat-list-item:active
+    .mat-list-item-content {
+    color: mat-color($light-primary);
+    background-color: rgba(102, 103, 103, 0.04);
+  }
+  .hero
+    .mat-expansion-panel
+    .mat-expansion-panel-content
+    .mat-expansion-panel-body
+    .mat-list-base
+    .mat-list-item.active-menu-item
+    .mat-list-item-content {
+    color: mat-color($light-primary);
+  }
+
   a:hover {
     text-decoration: none;
   }
@@ -291,8 +359,8 @@ $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
   }
 
   .active-menu-item {
-    background-color: mat-color($light-primary);
-    color: #fff;
+    // background-color: mat-color($light-primary);
+    color: mat-color($light-primary);
   }
 }
 
@@ -378,7 +446,6 @@ $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
   }
 }
 
-
 @media screen and (max-width: 1000px) {
   .main-block {
     width: 50%;
@@ -387,4 +454,104 @@ $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
   .intimation-block {
     width: 20%;
   }
+}
+
+// .hero button {
+//   padding: 10px 15px;
+//   font-weight: 700;
+//   line-height: 16px;
+//   margin: 0;
+//   font-size: 13px;
+//   cursor: pointer;
+//   position: relative;
+//   display: block;
+//   width: 100%;
+//   text-align: left;
+//   background: none;
+//   border: none;
+// }
+
+// .hero .mat-list-base[dense] .mat-list-item,
+// .hero .mat-list-base[dense] .mat-list-option {
+//   display: block;
+//   height: 40px;
+//   width: 100%;
+//   padding: 0;
+//   position: relative;
+// }
+
+.hero .mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body .mat-list-base {
+  padding: 0px;
+}
+
+.hero
+  .mat-expansion-panel
+  .mat-expansion-panel-content
+  .mat-expansion-panel-body
+  .mat-list-base
+  .mat-list-item:hover
+  .mat-list-item-content {
+  color: mat-color($candy-app-primary);
+}
+
+.hero
+  .mat-expansion-panel
+  .mat-expansion-panel-content
+  .mat-expansion-panel-body
+  .mat-list-base
+  .mat-list-item.active-menu-item
+  .mat-list-item-content {
+  color: mat-color($candy-app-primary);
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.hero .mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body {
+  padding: 0px !important;
+}
+
+.hero mat-expansion-panel {
+  border-radius: 0px;
+  margin: 0px;
+}
+
+.hero .mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body .mat-list-base .mat-list-item {
+  font-size: 10px;
+}
+
+.hero .mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body .mat-list-base .mat-list-item,
+.hero
+  .mat-expansion-panel
+  .mat-expansion-panel-content
+  .mat-expansion-panel-body
+  .mat-list-base[dense]
+  .mat-list-option {
+  display: block;
+  height: 40px;
+  width: 100%;
+  padding: 0;
+  position: relative;
+}
+
+.hero .mat-expansion-panel-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 15px;
+  border-radius: inherit;
+  font-size: 12px;
+  height: 40px !important;
+}
+
+.hero .mat-expansion-panel-header-title {
+  font-weight: 500;
+}
+
+.hero .mat-accordion .mat-expansion-panel:first-of-type {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.hero .mat-accordion .mat-expansion-panel:last-of-type {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
 }

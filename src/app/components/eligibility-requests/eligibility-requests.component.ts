@@ -4,7 +4,6 @@ import { SurveysStore } from "../../stores/surveys/surveys-store";
 import { AccreditationRequestStore } from "../../stores/accreditation-requests/accreditation-requests-store";
 import * as _ from 'lodash';
 import { Subscription } from "rxjs";
-import { Router } from "@angular/router";
 import { UsersStore } from 'src/app/stores/users/users-store';
 
 @Component({
@@ -25,6 +24,7 @@ export class EligibilityRequestsComponent implements OnInit, OnDestroy {
   public selectedRequestItems: any = [];
 
   toggleBtn: boolean = false;
+  addMobileClasses: boolean = false;
 
   options: Object = {
     submitMessage: "",
@@ -37,7 +37,6 @@ export class EligibilityRequestsComponent implements OnInit, OnDestroy {
     private _surveysStore: SurveysStore,
     private _usersStore: UsersStore,
     private _accreditationRequestStore: AccreditationRequestStore,
-    private _router: Router,
   ) { }
 
   ngOnInit() {
@@ -70,6 +69,12 @@ export class EligibilityRequestsComponent implements OnInit, OnDestroy {
         console.log("ALL USERS:--", data.users);
       })
     )
+    this.Subscription.add(
+      this._authStore.state$.subscribe((data) => {
+        this.addMobileClasses = data.auth.applyMobileClasses;
+        // console.log("ALL USERS:--", data.users);
+      })
+    )
   }
 
   getRequest(element) {
@@ -97,6 +102,8 @@ export class EligibilityRequestsComponent implements OnInit, OnDestroy {
     this._authStore.setEligibleFlag(true);
     this.toggleBtn = this._usersStore.findEligibleUser(this.selectedRequest.user);
   }
+
+  intimateFip(){}
 
   ngOnDestroy() {
     this.Subscription.unsubscribe();

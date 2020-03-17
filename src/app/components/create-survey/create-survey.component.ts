@@ -64,10 +64,10 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   onChange(event) {
-    if (this.jsonElement) {
-      this.jsonElement.nativeElement.innerHTML = '';
-      this.jsonElement.nativeElement.appendChild(document.createTextNode(JSON.stringify(event.form, null, 4)));
-    }
+    // if (this.jsonElement) {
+    //   this.jsonElement.nativeElement.innerHTML = '';
+    //   this.jsonElement.nativeElement.appendChild(document.createTextNode(JSON.stringify(event.form, null, 4)));
+    // }
     this.refreshForm.emit({
       form: event.form
     });
@@ -81,6 +81,13 @@ export class CreateSurveyComponent implements OnInit {
     this.Subscription.add(
       this._smeStore.state$.subscribe(data => {
         this.allSmes = data.smes;
+        console.log("ALL SMES:---", data.smes);
+      })
+    );
+    this.Subscription.add(
+      this._surveysStore.state$.subscribe(data => {
+        // this.allSmes = data.surveys;
+        console.log("ALL SURVEYS:---", data.surveys);
       })
     );
   }
@@ -121,7 +128,7 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   saveForm(values) {
-    // console.log("FORM TO SAVE:--", values, "\nform", this.form);
+    console.log("FORM TO SAVE:--", values, "\nform", this.form);
     // console.log("FORM TO SAVE:--", 
     // "\nname", this.formName, 
     // "\ntype", this.formType, 
@@ -142,6 +149,8 @@ export class CreateSurveyComponent implements OnInit {
     // } else {
       // this.openSnackBar();
     // }
+    // this._smeStore.updateUserRef(values.smeRef, values.email);
+    this._smeStore.updateFormGenrated(values.smeRef);
     this.createProfileForm.reset();
     this.form = {
       components: [],

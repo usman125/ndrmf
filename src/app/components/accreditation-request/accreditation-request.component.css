@@ -165,7 +165,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  color:gray;
+  color: gray;
 }
 
 .comments-matrix .form-comments {
@@ -192,7 +192,7 @@ button {
   display: flex;
   /* background: rgba(235, 235, 235, 0.6); */
   /* background: rgba(0, 0, 0, 0.03); */
-  background: rgba(102,103,103,0.1);
+  background: rgba(102, 103, 103, 0.1);
   margin-bottom: 5px;
   font-size: 12px;
   padding: 5px;
@@ -217,7 +217,7 @@ button {
   display:inline-flex;
 } */
 
-.formio-component-submit{
+.formio-component-submit {
   display: none;
 }
 
@@ -227,15 +227,45 @@ button {
 
 @media (max-width: 880px) {
   /* CSS that should be displayed if width is equal to or less than 800px goes here */
-    /* mat-card-content{
+  /* mat-card-content{
       display:block;
     } */
 }
 
+.view-block{
+  display: flex;
+  flex-direction: row;
+}
+
 .view-block .form-items {
   width: 62%;
+  margin-right: 0px;
 }
 
 .view-block .activity-items {
   width: 38%;
 }
+
+.right-layout {
+  position: sticky;
+  top: 25px;
+}
+
+
+.mobile-class.view-block{
+  flex-direction: column-reverse;
+}
+.mobile-class.view-block{
+  flex-direction: column-reverse;
+}
+
+.mobile-class.view-block .form-items {
+  margin-right: 20px;
+  width: auto;
+}
+
+/* .view-block[_ngcontent-gnv-c12] .activity-items[_ngcontent-gnv-c12] */
+.mobile-class.view-block .activity-items {
+  width: auto;
+}
+  

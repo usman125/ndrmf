@@ -1,18 +1,10 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, EventEmitter, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthStore } from "../../stores/auth/auth-store";
 import { SurveysStore } from "../../stores/surveys/surveys-store";
 import { Subscription } from "rxjs";
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-
-// export interface SurveyElement {
-//   name: any;
-//   smeRef: any;
-//   passScore: any;
-//   totalScore: any;
-// }
 
 @Component({
   selector: 'app-surveys',
@@ -43,7 +35,6 @@ export class SurveysComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
-    private _router: Router,
     private _surveysStore: SurveysStore,
     private _authStore: AuthStore,
     private _changeDetectorRef: ChangeDetectorRef,

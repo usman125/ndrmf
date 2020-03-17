@@ -9,21 +9,9 @@ import * as _ from 'lodash';
 import FormioUtils from 'formiojs/utils';
 import { SingleAccreditationRequestStore } from 'src/app/stores/single-accreditation-requests/single-accreditation-requests-store';
 import { AccreditationReviewStore } from 'src/app/stores/accreditation-reviews/accreditation-reviews-store';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { AccreditationCommentsMatrixStore } from "../../stores/accreditation-comments-matrix/accreditation-comments-matrix-store";
 import { SectionSelectorStore } from "../../stores/section-selector/section-selector-store";
 import { fipIntimationsStore } from "../../stores/fip-intimations/fip-intimations-store";
-import { Router, ActivatedRoute } from '@angular/router';
 import { setValue } from "../../stores/fip-intimations/intimate-fip";
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  query,
-  stagger
-} from '@angular/animations';
 
 declare var $: any;
 
@@ -36,19 +24,7 @@ export interface DialogData {
 @Component({
   selector: 'app-accreditation-request',
   templateUrl: './accreditation-request.component.html',
-  styleUrls: ['./accreditation-request.component.css'],
-  animations: [
-    trigger('pageAnimations', [
-      transition(':enter', [
-        query('.hero, form', [
-          style({ opacity: 0, transform: 'translateY(-100px)' }),
-          stagger(-30, [
-            animate('500ms cubic-bezier(0.35, 0, 0.25, 1)', style({ opacity: 1, transform: 'none' }))
-          ])
-        ])
-      ])
-    ]),
-  ]
+  styleUrls: ['./accreditation-request.component.css']
 })
 
 export class AccreditationRequestComponent implements OnInit, OnDestroy {
@@ -112,54 +88,65 @@ export class AccreditationRequestComponent implements OnInit, OnDestroy {
 
   allSectionSelections: any = [];
 
+  generatePipe: any = [];
+  userSystemStatus: any = null;
+  userAllScore: any = null;
+  userSectionScore: any = 0;
+
+  addMobileClasses: boolean;
+
   constructor(
     private _accreditationRequestStore: AccreditationRequestStore,
     private _singleAccreditationRequestStore: SingleAccreditationRequestStore,
-    private _accreditationCommentsMatrixStore: AccreditationCommentsMatrixStore,
     private _accreditationReviewStore: AccreditationReviewStore,
     private _sectionSelectorStore: SectionSelectorStore,
     private _fipIntimationsStore: fipIntimationsStore,
     private _authStore: AuthStore,
-    private _router: Router,
-    private _activatedRoute: ActivatedRoute,
     private _smeStore: SmeStore,
     private _surveysStore: SurveysStore,
-    private _overlayContainer: OverlayContainer,
     public dialog: MatDialog,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem('user'));
     setTimeout(() => {
       this._authStore.setRouteName('ACCREDITATION-REQUESTS');
-    })
+    });
+    this.Subscription.add(
+      this._authStore.state$.subscribe((data) => {
+        // this.allSmes = data.smes;
+        this.addMobileClasses = data.auth.applyMobileClasses;
+      })
+    );
     this.Subscription.add(
       this._smeStore.state$.subscribe((data) => {
         this.allSmes = data.smes;
       })
-    )
+    );
     this.Subscription.add(
       this._accreditationReviewStore.state$.subscribe((data) => {
         this.allRequestReviews = data.reviews;
       })
-    )
+    );
     this.Subscription.add(
       this._surveysStore.state$.subscribe((data) => {
         this.allSurveys = data.surveys;
       })
-    )
+    );
     this.Subscription.add(
       this._singleAccreditationRequestStore.state$.subscribe((data) => {
         this.userReviewRequests = data.requests;
-        console.log("USER REVIEWS:--", this.userReviewRequests);
-        this.checkScores(this.userReviewRequests);
+        // console.log("USER REVIEWS:--", this.userReviewRequests);
+        if (this.userReviewRequests)
+          this.checkScores(this.userReviewRequests);
       })
-    )
+    );
     this.Subscription.add(
       this._sectionSelectorStore.state$.subscribe((data) => {
         this.allSectionSelections = data.selections;
       })
-    )
+    );
     this.Subscription.add(
       this._fipIntimationsStore.state$.subscribe((data) => {
         // console.log("ALL ADDED INTIMATIONS:--", data.intimations);
@@ -168,6 +155,7 @@ export class AccreditationRequestComponent implements OnInit, OnDestroy {
     this.Subscription.add(
       this._accreditationRequestStore.state$.subscribe((data) => {
         // console.log(data);
+        // this.generatePipe = generate(data)
         this.userRequests = [];
         this.dataSource = [];
         this.userRequests = data.requests;
@@ -178,7 +166,7 @@ export class AccreditationRequestComponent implements OnInit, OnDestroy {
           this.smeDefaults();
         }
       })
-    )
+    );
   }
 
   adminDefaults() {
@@ -544,10 +532,42 @@ export class AccreditationRequestComponent implements OnInit, OnDestroy {
             count = count + 1;
           }
         }
-        console.log('COUNT FOR:--', j, count, '\n');
+        // console.log('COUNT FOR:--', j, count, '\n');
         rating[j] = count;
       }
+
+      if (j === 5) {
+        this.rateApplication(rating);
+      }
     }
+    // var count1 = 0;
+    // var count2 = 0;
+    // var requestStatus = null;
+    // Object.keys(rating).forEach((key) => {
+    //   count1 = count1 + parseInt(key) * rating[key];
+    //   count2 = count2 + rating[key];
+    // })
+    // if (count1 && count2) {
+    //   if (Math.ceil(count1 / count2)) {
+    //     this.userSectionScore = this.userSectionScore + Math.ceil(count1 / count2);
+    //   } else {
+    //     this.userSectionScore = this.userSectionScore + 0;
+    //   }
+    // }
+    // if (Math.ceil(count1 / count2) >= 0 && Math.ceil(count1 / count2) <= 2) {
+    //   requestStatus = "Failed";
+    // } else if (Math.ceil(count1 / count2) > 2 && Math.ceil(count1 / count2) <= 3) {
+    //   requestStatus = "Deffered";
+    // } else if (Math.ceil(count1 / count2) > 3 && Math.ceil(count1 / count2) <= 5) {
+    //   requestStatus = "Accredited";
+    // }
+
+    // if ()
+
+  }
+
+  rateApplication(rating) {
+
     var count1 = 0;
     var count2 = 0;
     var requestStatus = null;
@@ -555,23 +575,27 @@ export class AccreditationRequestComponent implements OnInit, OnDestroy {
       count1 = count1 + parseInt(key) * rating[key];
       count2 = count2 + rating[key];
     })
+
     if (Math.ceil(count1 / count2) >= 0 && Math.ceil(count1 / count2) <= 2) {
       requestStatus = "Failed";
+      this.userSystemStatus = requestStatus;
+      this.userAllScore = Math.ceil(count1 / count2);
     } else if (Math.ceil(count1 / count2) > 2 && Math.ceil(count1 / count2) <= 3) {
       requestStatus = "Deffered";
-    } else {
+      this.userSystemStatus = requestStatus;
+      this.userAllScore = Math.ceil(count1 / count2);
+    } else if (Math.ceil(count1 / count2) > 3 && Math.ceil(count1 / count2) <= 5) {
       requestStatus = "Accredited";
+      this.userSystemStatus = requestStatus;
+      this.userAllScore = Math.ceil(count1 / count2);
     }
     console.log(
-      "REVIEW TO ADD FOR ITEM:--\n", item,
-      "\nACTUAL REVIEW:--", this.formReviewObjects,
-      "\nTOAL RATING :--", rating,
-      "\nCOUNT 1 :--", count1,
-      "\nCOUNT 2 :--", count2,
-      "\nRATING RAW:--", count1 / count2,
-      "\nRATING :--", Math.ceil(count1 / count2),
-      "\REQUEST STATUS :--", requestStatus,
+      "ALL Request SCORES:--\n", rating,
+      "SYSTEM STATUS:--\n", requestStatus,
+      "USER SCORES:--\n", this.userAllScore,
+
     );
+
   }
 
   viewCommentsMatrix(userReviewRequests) {
@@ -665,7 +689,6 @@ export class AccreditationRequestComponent implements OnInit, OnDestroy {
       }
     });
   }
-
 
   hideComments() {
     this.commentsFlag = false;

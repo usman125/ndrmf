@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, EventEmitter, HostListener } from '@angular/core';
 import { Subscription, from } from "rxjs";
-import { filter } from "rxjs/operators";
 import { SurveysStore } from "../../stores/surveys/surveys-store";
 import { AuthStore } from "../../stores/auth/auth-store";
 import { SmeStore } from "../../stores/sme/sme-store";
@@ -11,7 +10,6 @@ import { fipIntimationsState } from "../../stores/fip-intimations/fip-intimation
 import { setCommentValue, shareStoreReplay } from "../../stores/CurrentCommentReplay";
 import {
   trigger,
-  state,
   style,
   animate,
   transition,

@@ -62,8 +62,8 @@ mat-sidenav .mat-menu-item{
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 200px;
-  padding-top: 11px;
+  width: 220px;
+  margin-top: 11px;
   /* background: rgba(255, 0, 0, 0.5); */
 }
 
